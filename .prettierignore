@@ -1,0 +1,10 @@
+# ignore by prettier
+.cache 
+.husky
+build
+node_modules
+public
+tests
+# css
+styles
+app/styles
