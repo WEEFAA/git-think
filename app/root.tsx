@@ -1,4 +1,5 @@
 import rootStyles from '~/styles/root.css'
+import tailwindCss from '~/styles/tailwind.css'
 import type { MetaFunction, LinksFunction } from '@remix-run/node'
 import {
 	Links,
@@ -9,7 +10,6 @@ import {
 	ScrollRestoration,
 } from '@remix-run/react'
 
-
 export const meta: MetaFunction = () => ({
 	charset: 'utf-8',
 	title: 'New Remix App',
@@ -17,18 +17,18 @@ export const meta: MetaFunction = () => ({
 })
 
 export const links: LinksFunction = () => [
+	{ rel: 'stylesheet', href: tailwindCss },
 	{ rel: 'stylesheet', href: rootStyles },
 ]
 
 export default function App() {
 	return (
-		<html lang="en">
+		<html lang="en" className="dark font-mono">
 			<head>
 				<Meta />
 				<Links />
-				{typeof document === 'undefined' ? '__STYLES__' : null}
 			</head>
-			<body>
+			<body className="container bg-white dark:bg-slate-800">
 				<Outlet />
 				<ScrollRestoration />
 				<Scripts />

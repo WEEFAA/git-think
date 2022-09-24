@@ -4,7 +4,6 @@ import { format } from 'date-fns'
 import type { MetaFunction, LinksFunction } from '@remix-run/node'
 import dayPickerStyles from 'react-day-picker/dist/style.css'
 import root from '~/styles/day-picker.css'
-import { Container } from '~/components/Container'
 
 export const meta: MetaFunction = () => ({
 	title: 'git-think',
@@ -24,7 +23,7 @@ export default function Index() {
 	}
 
 	return (
-		<Container>
+		<div className="flex flex-no-wrap justify-between">
 			<DayPicker
 				mode="single"
 				selected={selected}
@@ -33,7 +32,11 @@ export default function Index() {
 				showOutsideDays
 				fixedWeeks
 				showWeekNumber
+				className="bg-slate-800 dark:bg-white drop-shadow-lg rounded-lg w-auto border-double border-2 outline-offset-2 outline-pink-500"
 			/>
-		</Container>
+			<div className="bg-white w-full my-4 drop-shadow-lg rounded-lg border-double border-2 outline-offset-2 outline-pink-500">
+				test
+			</div>
+		</div>
 	)
 }

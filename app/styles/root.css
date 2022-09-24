@@ -5,3 +5,8 @@
 	--primary-dark: #8a39a0;
 	--background-color-dark: #4d165c;
 }
+
+* { 
+	padding: 0px;
+	margin: 0px;
+}
