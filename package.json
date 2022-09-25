@@ -10,7 +10,7 @@
 		"dev:css": "npm run generate:css -- --watch",
 		"dev:node": "cross-env NODE_ENV=development nodemon ./server.js --watch ./server.js",
 		"dev:remix": "remix watch",
-		"generate:css": "tailwindcss -o ./app/styles/tailwind.css",
+		"generate:css": "tailwindcss -w -i ./app/styles/day-picker.css -o ./app/styles/tailwind.css",
 		"start": "cross-env NODE_ENV=production node ./server.js"
 	},
 	"dependencies": {

@@ -16,27 +16,18 @@ export const links: LinksFunction = () => [
 
 export default function Index() {
 	const [selected, setSelected] = useState<Date>()
-
-	let footer = <p>Please pick a day.</p>
-	if (selected) {
-		footer = <p>You picked {format(selected, 'PP')}.</p>
-	}
-
 	return (
-		<div className="flex flex-no-wrap justify-between">
+		<div className="flex flex-no-wrap justify-between w-full">
 			<DayPicker
 				mode="single"
 				selected={selected}
 				onSelect={setSelected}
-				footer={footer}
 				showOutsideDays
 				fixedWeeks
 				showWeekNumber
-				className="bg-slate-800 dark:bg-white drop-shadow-lg rounded-lg w-auto border-double border-2 outline-offset-2 outline-pink-500"
+				className="drop-shadow-lg rounded-lg w-auto"
 			/>
-			<div className="bg-white w-full my-4 drop-shadow-lg rounded-lg border-double border-2 outline-offset-2 outline-pink-500">
-				test
-			</div>
+			<div className="m-4 text-green-800 bg-gray-900 px-3 pb-3 w-full rounded-lg">test</div>
 		</div>
 	)
 }
