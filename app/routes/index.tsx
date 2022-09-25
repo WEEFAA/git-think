@@ -4,6 +4,7 @@ import { format } from 'date-fns'
 import type { MetaFunction, LinksFunction } from '@remix-run/node'
 import dayPickerStyles from 'react-day-picker/dist/style.css'
 import root from '~/styles/day-picker.css'
+import List, { Item, ItemData } from '~/components/List'
 
 export const meta: MetaFunction = () => ({
 	title: 'git-think',
@@ -17,6 +18,12 @@ export const links: LinksFunction = () => [
 	{
 		rel: 'stylesheet',
 		href: root,
+	},
+	{
+		rel: 'stylesheet',
+		href: 'https://use.fontawesome.com/releases/v5.7.0/css/all.css',
+		crossOrigin: "anonymous",
+		integrity: "sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
 	},
 ]
 
@@ -33,8 +40,21 @@ export default function Index() {
 				showWeekNumber
 				className="drop-shadow-lg rounded-lg w-auto"
 			/>
-			<div className="m-4 text-green-800 bg-gray-900 px-3 pb-3 w-full rounded-lg">
-				test
+			<div className="m-4 text-green-800 bg-gray-900 px-3 pb-3 w-full rounded-lg py-4">
+				<div className="container">
+					<List>
+						<Item time="8:00AM">
+							<ItemData title='Grocery'>
+								buy lemons
+							</ItemData>
+						</Item>
+						<Item time="7:00AM">
+							<ItemData title='Other'>
+								wash the dishes
+							</ItemData>
+						</Item>
+					</List>
+				</div>
 			</div>
 		</div>
 	)

@@ -16,11 +16,14 @@
 
 	/* style overrides */
 	/* height: 100%; */
-	@apply m-4 text-green-800 bg-gray-800 px-3 pb-3;
+	@apply m-4 text-green-800 bg-gray-800 px-3 pb-3 font-serif;
 	margin-right: 0;
 }
 
 .rdp-months > .rdp-month > .rdp-table .rdp-button {
 	@apply border border-indigo-600 rounded-none hover:border-none font-medium 
 	hover:text-green-400 hover:bg-pink-800 hover:font-semibold;
+}
+.rdp-months > .rdp-month > .rdp-table .rdp-button.rdp-day_selected {
+	@apply font-semibold;
 }
