@@ -6,6 +6,8 @@ import dayPickerStyles from 'react-day-picker/dist/style.css'
 import root from '~/styles/day-picker.css'
 import List, { Item, ItemData } from '~/components/List'
 import WeekNumber from '~/components/WeekNumber'
+import { useStorage } from '~/hooks/useStorage'
+import DefaultStorage from '~/storage/default'
 
 export const meta: MetaFunction = () => ({
 	title: 'git-think',
@@ -31,6 +33,7 @@ export const links: LinksFunction = () => [
 
 export default function Index() {
 	const [selected, setSelected] = useState<Date>()
+	const storage = useStorage(new DefaultStorage(), selected)
 	const customComponents = {
 		WeekNumber,
 	}
@@ -49,12 +52,11 @@ export default function Index() {
 			<div className="m-4 text-green-800 bg-gray-900 px-3 pb-3 w-full rounded-lg py-4">
 				<div className="container">
 					<List>
-						<Item time="8:00AM">
-							<ItemData title="Grocery">buy lemons</ItemData>
-						</Item>
-						<Item time="7:00AM">
-							<ItemData title="Other">wash the dishes</ItemData>
-						</Item>
+						{storage.items.map((item) => (
+							<Item time="8:00AM">
+								<ItemData title="Grocery">buy lemons</ItemData>
+							</Item>
+						))}
 					</List>
 				</div>
 			</div>
