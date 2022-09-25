@@ -10,8 +10,14 @@ export const meta: MetaFunction = () => ({
 })
 
 export const links: LinksFunction = () => [
-	{ rel: 'stylesheet', href: dayPickerStyles as unknown as string },
-	{ rel: 'stylesheet', href: root },
+	{
+		rel: 'stylesheet',
+		href: dayPickerStyles as unknown as string,
+	},
+	{
+		rel: 'stylesheet',
+		href: root,
+	},
 ]
 
 export default function Index() {
@@ -27,7 +33,9 @@ export default function Index() {
 				showWeekNumber
 				className="drop-shadow-lg rounded-lg w-auto"
 			/>
-			<div className="m-4 text-green-800 bg-gray-900 px-3 pb-3 w-full rounded-lg">test</div>
+			<div className="m-4 text-green-800 bg-gray-900 px-3 pb-3 w-full rounded-lg">
+				test
+			</div>
 		</div>
 	)
 }

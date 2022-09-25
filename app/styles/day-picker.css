@@ -21,5 +21,6 @@
 }
 
 .rdp-months > .rdp-month > .rdp-table .rdp-button {
-	@apply border border-indigo-600 rounded-none hover:border-none font-medium hover:text-green-400 hover:bg-pink-800 hover:font-semibold;
+	@apply border border-indigo-600 rounded-none hover:border-none font-medium 
+	hover:text-green-400 hover:bg-pink-800 hover:font-semibold;
 }
