@@ -20,6 +20,23 @@
 	margin-right: 0;
 }
 
+
+@layer components {
+	.rdp-custom-weeknumber {
+		display: flex;
+		overflow: hidden;
+		align-items: center;
+		justify-content: center;
+		box-sizing: border-box;
+		width: var(--rdp-cell-size);
+		max-width: var(--rdp-cell-size);
+		height: var(--rdp-cell-size);
+		margin: 0;
+		border: 2px solid transparent;
+		border-radius: 100%;
+	}
+}
+
 .rdp-months > .rdp-month > .rdp-table .rdp-button {
 	@apply border border-indigo-600 rounded-none hover:border-none font-medium 
 	hover:text-green-400 hover:bg-yellow-800 hover:font-semibold;
