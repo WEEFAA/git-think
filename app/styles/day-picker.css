@@ -16,7 +16,7 @@
 
 	/* style overrides */
 	/* height: 100%; */
-	@apply m-4 text-green-800 bg-gray-800 px-3 pb-3 font-serif;
+	@apply m-4 text-green-700 bg-gray-800 px-3 pb-3 font-serif;
 	margin-right: 0;
 }
 
@@ -35,6 +35,10 @@
 		border: 2px solid transparent;
 		border-radius: 100%;
 	}
+}
+
+.rdp-months > .rdp-month > .rdp-table .rdp-button.rdp-day_outside {
+	@apply text-green-900;	
 }
 
 .rdp-months > .rdp-month > .rdp-table .rdp-button {
