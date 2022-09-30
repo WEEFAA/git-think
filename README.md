@@ -1,3 +1,3 @@
 # Welcome to git-think
 
-profession and personal companion.
+professional and personal companion.
