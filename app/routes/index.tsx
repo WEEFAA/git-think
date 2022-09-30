@@ -6,6 +6,7 @@ import root from '~/styles/day-picker.css'
 import List, { Item, ItemData } from '~/components/List'
 import WeekNumber from '~/components/WeekNumber'
 import { useStorage } from '~/hooks/useStorage'
+import { format } from 'date-fns'
 
 export const meta: MetaFunction = () => ({
 	title: 'git-think',
@@ -76,13 +77,14 @@ export default function Index() {
 
 	const onClick = useCallback(
 		function () {
+			const target = selected ?? new Date()
 			storage?.instance?.push(
 				{
-					time: '8:00',
+					time: target.toISOString(),
 					title: state.title,
 					description: state.description,
 				},
-				selected ?? new Date()
+				target
 			)
 			dispatch({ type: TActionEnum.INIT, payload: null })
 		},
@@ -118,7 +120,7 @@ export default function Index() {
 				<div className="container">
 					<List>
 						{items.map((item, index) => (
-							<Item key={index} time={item.time}>
+							<Item key={index} time={format(new Date(item.time), "HH:mm")}>
 								<ItemData title={item.title}>{item.description}</ItemData>
 							</Item>
 						))}
