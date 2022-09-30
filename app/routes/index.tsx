@@ -77,7 +77,13 @@ export default function Index() {
 
 	const onClick = useCallback(
 		function () {
-			const target = selected ?? new Date()
+			const now = new Date()
+			const target = selected ?? now
+			target.setHours(
+				now.getHours(),
+				now.getMinutes(),
+				now.getSeconds()
+			)
 			storage?.instance?.push(
 				{
 					time: target.toISOString(),
