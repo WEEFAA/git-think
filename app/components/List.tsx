@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 const List: React.FC<React.PropsWithChildren> = function (props) {
 	return <ul className="flex flex-col">{props.children}</ul>
 }
@@ -5,11 +7,19 @@ const List: React.FC<React.PropsWithChildren> = function (props) {
 export type TItem = {
 	time: string
 	children?: React.ReactNode
+	float?: boolean
+	onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 export const Item: React.FC<TItem> = function (props) {
+	let containerClass =
+		'transition duration-500 shadow ease-in-out transform hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 rounded-md flex flex-1 items-center p-4'
+	if (props.float) {
+		containerClass += ' hover:-translate-y-1'
+	}
+
 	return (
 		<li className="border-gray-400 flex flex-row mb-2">
-			<div className="transition duration-500 shadow ease-in-out transform hover:-translate-y-1 hover:shadow-lg select-none cursor-pointer bg-white dark:bg-gray-800 rounded-md flex flex-1 items-center p-4">
+			<div className={containerClass}>
 				<div className="flex flex-col w-10 h-10 justify-center items-center mr-4">
 					<a href="#" className="block relative">
 						<svg
@@ -28,7 +38,10 @@ export const Item: React.FC<TItem> = function (props) {
 				<div className="text-gray-600 dark:text-gray-200 text-xs">
 					{props.time}
 				</div>
-				<button className="w-24 text-right flex justify-end">
+				<button
+					className="w-24 text-right flex justify-end"
+					onClick={props.onClick}
+				>
 					<svg
 						width="12"
 						fill="currentColor"
@@ -45,17 +58,23 @@ export const Item: React.FC<TItem> = function (props) {
 	)
 }
 
-export type TItemData = {
-	title?: string
-	children: React.ReactNode
+Item.defaultProps = {
+	float: true,
 }
-export const ItemData: React.FC<TItemData> = function (props) {
+
+export type TItemData = React.PropsWithChildren<{
+	title?: ReactNode
+}>
+
+export const ItemData: React.FC<TItemData> = function ({
+	children,
+	title,
+	...props
+}) {
 	return (
 		<div className="flex-1 pl-1 md:mr-16">
-			<div className="font-medium dark:text-white">{props.title}</div>
-			<div className="text-gray-600 dark:text-gray-200 text-sm">
-				{props.children}
-			</div>
+			<div className="font-medium dark:text-white">{title}</div>
+			<div className="text-gray-600 dark:text-gray-200 text-sm">{children}</div>
 		</div>
 	)
 }
