@@ -1,17 +1,38 @@
-import { TGitThinkStorage } from '~/types/Abstracts'
-import { TThinkData } from '~/types/git-think'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import DefaultStorage, { IDefaultStorage } from '~/storage/default'
 
 type TUseStorageReturn = {
-	_store: TGitThinkStorage,
-	items: Array<TThinkData>
+	instance: IDefaultStorage | undefined
 }
 interface TUseStorage {
-	(storage: TGitThinkStorage, selected?: Date): TUseStorageReturn
+	(selected?: Date): TUseStorageReturn
 }
-export const useStorage: TUseStorage = function (storage, selected) {
-	
-	return {
-		_store: storage,
-		items: storage.get(selected ?? new Date())
-	}
+export const useStorage: TUseStorage = function (selected) {
+	const [render, rerender] = useState(-1)
+	const [storage, setStorage] = useState<IDefaultStorage>()
+
+	useEffect(() => {
+		setStorage(new DefaultStorage())
+	}, [])
+
+	useEffect(() => {
+		// listen to event changes
+		if (!storage) return
+		const eventName = storage._listen_to
+		const renderCb = () => {
+			rerender((ctr) => ++ctr)
+		}
+		addEventListener(eventName, renderCb)
+
+		return () => {
+			removeEventListener(eventName, renderCb)
+		}
+	}, [storage])
+
+	return useMemo(
+		() => ({
+			instance: storage,
+		}),
+		[render, storage]
+	)
 }
