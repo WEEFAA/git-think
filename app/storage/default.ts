@@ -1,5 +1,6 @@
 import { TGitThinkStorage } from '~/types/Abstracts'
 import { TThinkData } from '~/types/git-think'
+import { TDefaultJSONData } from './types'
 
 type TDefaultStorage = {
 	readonly _listen_to: string
@@ -20,10 +21,14 @@ class DefaultStorage implements IDefaultStorage {
 	}
 
 	get(selected: Date): TThinkData[] {
-		const rawData = this._localStorage.getItem(this._key)
+		const rawData = this._localStorage.getItem(
+			this.constructKeyFromDate(selected)
+		)
 		if (!rawData) return []
-		const data = DefaultStorage.parseData(rawData).data
-		return data[this.constructKeyFromDate(selected)] ?? []
+		// get actual git think items
+		const gitThinkItems =
+			DefaultStorage.parseData<TDefaultJSONData>(rawData)?.data
+		return gitThinkItems ?? []
 	}
 
 	getAll() {
@@ -33,20 +38,14 @@ class DefaultStorage implements IDefaultStorage {
 
 	push(data: TThinkData, time: Date): void {
 		const key = this.constructKeyFromDate(time)
-		// initialize if no data
-		const items = this.get(time)
-		let rawData = this._localStorage.getItem(this._key)
-		if (!rawData) {
-			// initialize
-			rawData = JSON.stringify({ data: {} })
+		// get previous data
+		let previousItems = this.get(time)
+		let storageItem: TDefaultJSONData = {
+			data: previousItems,
 		}
-		const storageData = DefaultStorage.parseData(rawData)
-		if (items.length === 0) {
-			storageData.data[key] = [data]
-		} else {
-			storageData.data[key] = storageData.data[key].concat(data)
-		}
-		this._localStorage.setItem(this._key, JSON.stringify(storageData))
+		// add new data
+		storageItem.data.push(data)
+		this._localStorage.setItem(key, JSON.stringify(storageItem))
 		this.rerender()
 	}
 
@@ -56,7 +55,9 @@ class DefaultStorage implements IDefaultStorage {
 		// dispatch custom change event
 		dispatchEvent(new Event(this._listen_to))
 	}
-	static parseData(data: string): ReturnType<typeof JSON.parse> {
+	static parseData<T = ReturnType<typeof JSON.parse>>(
+		data: string
+	): T | undefined {
 		try {
 			// process the data
 			const json = JSON.parse(data)
@@ -67,7 +68,10 @@ class DefaultStorage implements IDefaultStorage {
 	}
 
 	private constructKeyFromDate(date: Date): string {
-		return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+		const datePart = `${
+			date.getMonth() + 1
+		}/${date.getDate()}/${date.getFullYear()}`
+		return `${this._key}:${datePart}`
 	}
 }
 
